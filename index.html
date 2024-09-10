@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCLU REPLY FORMAT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/gclu-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GCLU REPLY FORMAT</h1>
+        <img src="images/gclu-logo.png" alt="Logo" class="logo">
+    </header>
+    <p>This tool is designed to facilitate easier responses to threads. It categorizes replies into three sections: pending, accepted, and denied.</p>
+
+    <table>
+        <tr>
+            <th>Trucker</th>
+            <th>Lumberjack</th>
+            <th>Impound</th>
+            <th>CGC</th>
+        </tr>
+        <tr>
+            <td>
+                <button class="accepted-button" id="btn-accepted-trucker">ACCEPTED</button>
+            </td>
+            <td>
+                <button class="accepted-button" id="btn-accepted-lumberjack">ACCEPTED</button>
+            </td>
+            <td>
+                <button class="accepted-button" id="btn-accepted-impound">ACCEPTED</button>
+            </td>
+            <td>
+                <button class="accepted-button" id="btn-accepted-cgc">ACCEPTED</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="pending-button" id="btn-pending-trucker">PENDING</button>
+            </td>
+            <td>
+                <button class="pending-button" id="btn-pending-lumberjack">PENDING</button>
+            </td>
+            <td>
+                <button class="pending-button" id="btn-pending-impound">PENDING</button>
+            </td>
+            <td>
+                <button class="pending-button" id="btn-pending-cgc">PENDING</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="denied-button" id="btn-denied-trucker">DENIED</button>
+            </td>
+            <td>
+                <button class="denied-button" id="btn-denied-lumberjack">DENIED</button>
+            </td>
+            <td>
+                <button class="denied-button" id="btn-denied-impound">DENIED</button>
+            </td>
+            <td>
+                <button class="denied-button" id="btn-denied-cgc">DENIED</button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="container">
+        <div class="input-row">
+            <div class="input-group">
+                <label for="applicant-input">Applicant Last Name</label>
+                <input type="text" id="applicant-input" placeholder="Type something...">
+            </div>
+
+            <div class="input-group">
+                <label for="rank-input">GCLU Rank</label>
+                <input type="text" id="rank-input" placeholder="Type something...">
+            </div>
+            
+            <div class="input-group">
+                <label for="officer-input">Officer Name</label>
+                <input type="text" id="officer-input" placeholder="Type something...">
+            </div>
+
+            <div class="input-group">
+                <label for="signature-input">Signature link (If Any)</label>
+                <input type="text" id="signature-input" placeholder="Type something...">
+            </div>
+        </div>
+
+        <label for="reason-input">Reason of Pending:</label>
+            <input type="text" id="reason-input" placeholder="Type something...">
+
+        <button class="add-item-button" id="add-reason-button">ADD</button>
+
+        <table class="table-reasons" id="tableReasons">
+            <thead>
+                <tr>
+                    <th class="table-columnNumberShow">#</th>
+                    <th>Reason</th>
+                    <th class="table-columnAction">Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+        <button id="clearButton" class="clearall-button">CLEAR ALL</button>
+    </div>
+
+    <div id="toast-pending-trucker" class="toast">Pending Trucker has been copied!</div>
+    <div id="toast-pending-lumberjack" class="toast">Pending Lumberjack has been copied!</div>
+    <div id="toast-pending-impound" class="toast">Pending Impound has been copied!</div>
+    <div id="toast-pending-cgc" class="toast">Pending CGC has been copied!</div>
+
+    <div id="toast-accepted-trucker" class="toast">Accepted Trucker has been copied!</div>
+    <div id="toast-accepted-lumberjack" class="toast">Accepted Lumberjack has been copied!</div>
+    <div id="toast-accepted-impound" class="toast">Accepted Impound has been copied!</div>
+    <div id="toast-accepted-cgc" class="toast">Accepted CGC has been copied!</div>
+
+    <div id="toast-denied-trucker" class="toast">Denied Trucker has been copied!</div>
+    <div id="toast-denied-lumberjack" class="toast">Denied Lumberjack has been copied!</div>
+    <div id="toast-denied-impound" class="toast">Denied Impound has been copied!</div>
+    <div id="toast-denied-cgc" class="toast">Denied CGC has been copied!</div>
+
+    <script src="main.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAy1eXrpCtRV-PHfs9EejU_uCmNTHe3Idg",
+          authDomain: "gclu-jgrp.firebaseapp.com",
+          projectId: "gclu-jgrp",
+          storageBucket: "gclu-jgrp.appspot.com",
+          messagingSenderId: "315235931429",
+          appId: "1:315235931429:web:a7e47dccc3db49b2ec36cc",
+          measurementId: "G-3NXM7B32KC"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+    //         logEvent(analytics, 'create_format', {
+    // type: "test",
+    // status: statusForm,
+    // officer_name: name,
+    // applicant_name: applicant,
+    // reason: reasons,
+    // timestamp: new Date().toISOString()
+//   });
+
+      </script>
+      <script>
+        window.localStorage.setItem('debug', 'firebase:analytics');
+      </script>
+</body>
+</html>
